@@ -37,7 +37,10 @@
 
     VideoAnalyticsProvider.prototype.destroy = function() {
         if (this._player) {
-            //ADBMobile.media.destroy(); // destroy?
+           // Remove delegate reference
+            ADBMobile.media.setDelegate(null);
+
+            this._uninstallEventListeners();
         }
     };
 
@@ -46,10 +49,10 @@
     /////////
 
     VideoAnalyticsProvider.prototype.getCurrentPlaybackTime = function() {
-        return this._player.getPlayhead();
+        return this._player.getCurrentPlaybackTime();
     };
 
-    VideoAnalyticsProvider.prototype.getQoSInfo = function() {
+    VideoAnalyticsProvider.prototype.getQoSObject = function() {
         return this._player.getQoSInfo();
     };
 
@@ -67,12 +70,12 @@
             programmer: "Sample programmer"
         };
 
-        ADBMobile.media.trackLoad(this._player.getVideoInfo(), mediaMetadata);
+        ADBMobile.media.trackSessionStart(this._player.getVideoInfo(), mediaMetadata);
     };
 
     VideoAnalyticsProvider.prototype._onUnload = function() {
         console.log('Player event: VIDEO_UNLOAD');
-        ADBMobile.media.trackUnload();
+        ADBMobile.media.trackSessionEnd();
     };
 
     VideoAnalyticsProvider.prototype._onPlay = function() {
@@ -91,22 +94,22 @@
 
     VideoAnalyticsProvider.prototype._onSeekStart = function() {
         console.log('Player event: SEEK_START');
-        ADBMobile.media.trackEvent(ADBMobile.media.SEEK_START);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.SeekStart);
     };
 
     VideoAnalyticsProvider.prototype._onSeekComplete = function() {
         console.log('Player event: SEEK_COMPLETE');
-        ADBMobile.media.trackEvent(ADBMobile.media.SEEK_COMPLETE);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.SeekComplete);
     };
 
     VideoAnalyticsProvider.prototype._onBufferStart = function() {
         console.log('Player event: BUFFER_START');
-        ADBMobile.media.trackEvent(ADBMobile.media.BUFFER_START);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.BufferStart);
     };
 
     VideoAnalyticsProvider.prototype._onBufferComplete = function() {
         console.log('Player event: BUFFER_COMPLETE');
-        ADBMobile.media.trackEvent(ADBMobile.media.BUFFER_COMPLETE);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.BufferComplete);
     };
 
     VideoAnalyticsProvider.prototype._onAdStart = function() {
@@ -117,22 +120,22 @@
             campaign: "Sample ad campaign"
         };
 
-        ADBMobile.media.trackEvent(ADBMobile.media.AD_START, this._player._adInfo, adContextData);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.AdStart, this._player.getAdInfo(), adContextData);
     };
 
     VideoAnalyticsProvider.prototype._onAdComplete = function() {
         console.log('Player event: AD_BREAK_COMPLETE');
-        ADBMobile.media.trackEvent(ADBMobile.media.AD_COMPLETE);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.AdComplete);
     };
 
     VideoAnalyticsProvider.prototype._onAdBreakStart = function() {
         console.log('Player event: AD_BREAK_START');
-        ADBMobile.media.trackEvent(ADBMobile.media.AD_BREAK_START, this._player._adBreakInfo);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.AdBreakStart, this._player.getAdBreakInfo());
     };
 
     VideoAnalyticsProvider.prototype._onAdBreakComplete = function() {
         console.log('Player event: AD_BREAK_START');
-        ADBMobile.media.trackEvent(ADBMobile.media.AD_BREAK_COMPLETE);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.AdBreakComplete);
     };
 
     VideoAnalyticsProvider.prototype._onChapterStart = function() {
@@ -140,12 +143,12 @@
         var chapterContextData = {
             segmentType: "Sample segment type"
         };
-        ADBMobile.media.trackEvent(ADBMobile.media.CHAPTER_START, this._player._chapterInfo, chapterContextData);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.ChapterStart, this._player.getChapterInfo(), chapterContextData);
     };
 
     VideoAnalyticsProvider.prototype._onChapterComplete = function() {
         console.log('Player event: CHAPTER_COMPLETE');
-        ADBMobile.media.trackEvent(ADBMobile.media.CHAPTER_COMPLETE);
+        ADBMobile.media.trackEvent(ADBMobile.media.Event.ChapterComplete);
     };
 
     VideoAnalyticsProvider.prototype._onComplete = function() {

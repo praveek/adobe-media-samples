@@ -50,7 +50,7 @@
 
         this._videoId = "clickbaby";
         this._videoName = "sample video click-baby";
-        this._streamType = ADBMobile.media.STREAM_TYPE_VOD;
+        this._streamType = ADBMobile.media.StreamType.VOD;
 
         this._videoLoaded = false;
 
@@ -60,18 +60,14 @@
         this._chapterInfo = null;
 
         // Build a static/hard-coded QoS info here.
-        this._qosInfo = new ADBMobile.media.QoSInfo();
-        this._qosInfo.bitrate = 50000;
-        this._qosInfo.fps = 24;
-        this._qosInfo.droppedFrames = 10;
-
+        this._qosInfo = ADBMobile.media.createQoSObject(50000, 0, 24, 10);
         this._clock = null;
 
         this._castplayer = castplayer;
         this._state = "created";
         this._isPaused = true;
         this._reachedEnd = false;
-        
+
         this._setupEventListeners();
     }
 
@@ -208,6 +204,22 @@
         return this._castplayer.mediaElement_.currentTime;
     };
 
+     VideoPlayer.prototype.getCurrentPlaybackTime = function() {
+        var vTime = this.getPlayhead();
+        var time;
+        if(vTime < AD_START_POS){
+            time = vTime;
+        }
+        else if(vTime >= AD_START_POS && vTime < AD_END_POS){
+            time =  AD_START_POS;
+        }
+        else {
+            time = vTime - AD_LENGTH;
+        }
+
+        return time;
+    };
+
     VideoPlayer.prototype._onPlay = function(e) {
         this._openVideoIfNecessary();
         NotificationCenter().dispatchEvent(PlayerEvent.PLAY);
@@ -281,13 +293,6 @@
         this._adInfo = null;
         this._chapterInfo = null;
 
-        // Build a static/hard-coded QoS info here (test).
-        this._qosInfo = new ADBMobile.media.QoSInfo();
-        this._qosInfo.bitrate = 50000;
-        this._qosInfo.fps = 24;
-        this._qosInfo.droppedFrames = 10;
-
-        this._clock = null;
         this._state = "created";
         this._isPaused = true;
         this._reachedEnd = false;
@@ -295,15 +300,13 @@
 
     VideoPlayer.prototype._startVideo = function() {
 
-        var media = this._castplayer.mediaManager_.getMediaInformation();        
+        var media = this._castplayer.mediaManager_.getMediaInformation();
 
         // Prepare the main video info.
         this._videoInfo = new ADBMobile.media.MediaInfo();
-        this._videoInfo.id = media.metadata.title ? media.metadata.title : "Undefined video id";
-        this._videoInfo.name = media.metadata.title ? media.metadata.title : "Undefined video name";
-        this._videoInfo.playerName = this._playerName;
-        this._videoInfo.length = this.getDuration();
-        this._videoInfo.streamType = this._streamType;
+        var id = media.metadata.title ? media.metadata.title : "Undefined video id";
+        var name = media.metadata.title ? media.metadata.title : "Undefined video name";
+        this._videoInfo = ADBMobile.media.createMediaObject(name, id, this.getDuration(), this._streamType);
         this._videoLoaded = true;
 
         NotificationCenter().dispatchEvent(PlayerEvent.VIDEO_LOAD);
@@ -311,23 +314,13 @@
 
     VideoPlayer.prototype._startChapter1 = function() {
         // Prepare the chapter info.
-        this._chapterInfo = new ADBMobile.media.ChapterInfo();
-        this._chapterInfo.length = CHAPTER1_LENGTH;
-        this._chapterInfo.startTime = CHAPTER1_START_POS;
-        this._chapterInfo.position = 1;
-        this._chapterInfo.name = "First chapter";
-
+        this._chapterInfo = ADBMobile.media.createChapterObject("First Chapter", 1, CHAPTER1_LENGTH, CHAPTER1_START_POS);
         NotificationCenter().dispatchEvent(PlayerEvent.CHAPTER_START);
     };
 
     VideoPlayer.prototype._startChapter2 = function() {
         // Prepare the chapter info.
-        this._chapterInfo = new ADBMobile.media.ChapterInfo();
-        this._chapterInfo.length = CHAPTER2_LENGTH;
-        this._chapterInfo.startTime = CHAPTER2_START_POS;
-        this._chapterInfo.position = 2;
-        this._chapterInfo.name = "Second chapter";
-
+        this._chapterInfo = ADBMobile.media.createChapterObject("Second Chapter", 2, CHAPTER2_LENGTH, CHAPTER2_START_POS);
         NotificationCenter().dispatchEvent(PlayerEvent.CHAPTER_START);
     };
 
@@ -339,19 +332,11 @@
     };
 
     VideoPlayer.prototype._startAd = function() {
-        // Prepare the ad break info.
-        this._adBreakInfo = new ADBMobile.media.AdBreakInfo();
-        this._adBreakInfo.name = "First Ad-Break";
-        this._adBreakInfo.position = 1;
-        this._adBreakInfo.playerName = this._playerName;
-        this._adBreakInfo.startTime = AD_START_POS;
-
+         // Prepare the ad break info.
+        this._adBreakInfo = ADBMobile.media.createAdBreakObject("First Ad-Break", 1, AD_START_POS, this._playerName);
         // Prepare the ad info.
-        this._adInfo = new ADBMobile.media.AdInfo();
-        this._adInfo.id = "001";
-        this._adInfo.name = "Sample ad";
-        this._adInfo.length = AD_LENGTH;
-        this._adInfo.position = 1;
+        this._adInfo = ADBMobile.media.createAdObject("Sample ad", "001", 1, AD_LENGTH);
+
 
         // Start the ad break.
         NotificationCenter().dispatchEvent(PlayerEvent.AD_BREAK_START);
