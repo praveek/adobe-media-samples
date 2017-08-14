@@ -41,7 +41,7 @@ The overlay layer holds:
   <script>
     var ADBMobileConfig = {
       "marketingCloud": {
-        "org": "06074954519E38710A490D16@AdobeOrg"
+        "org": "3CE342C75100435B0A490D4C@AdobeOrg"
       },
       "target": {
         "clientCode": "",
@@ -51,10 +51,10 @@ The overlay layer holds:
         "server": "mobileservices.demdex.net"
       },
       "analytics": {
-        "rsids": "mobile1figueroa-dev",
+        "rsids": "mobile1vhl.sample.player",
         "server": "obumobile1.sc.omtrdc.net",
         "ssl": false,
-        "offlineEnabled": true,
+        "offlineEnabled": false,
         "charset": "UTF-8",
         "lifecycleTimeout": 300,
         "privacyDefault": "optedin",
@@ -65,15 +65,15 @@ The overlay layer holds:
         "poi": []
       },
       "mediaHeartbeat": {
-        "server": "heartbeats.omtrdc.net",
-        "publisher": "06074954519E38710A490D16@AdobeOrg",
+        "server": "obumobile1.hb.omtrdc.net",
+        "publisher": "3CE342C75100435B0A490D4C@AdobeOrg",
         "channel": "test-channel-chromecast",
         "ssl": false,
         "ovp": "chromecast-player",
         "sdkVersion": "chromecast-sdk",
         "playerName": "Chromecast"
       }
-  };
+    };
   </script>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/mediaplayer/1.0.0/media_player.js"></script>
@@ -82,7 +82,7 @@ The overlay layer holds:
   <script src="script/app/notification.center.js"></script>
   <script src="script/app/player/video.player.js"></script>
   <script src="script/app/analytics/video.analytics.provider.js"></script>
-  
+
 </head>
 <body style="margin: 0">
     <div id="player" class="player">

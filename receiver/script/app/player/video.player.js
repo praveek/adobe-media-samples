@@ -67,7 +67,7 @@
         this._state = "created";
         this._isPaused = true;
         this._reachedEnd = false;
-
+        
         this._setupEventListeners();
     }
 
@@ -214,7 +214,7 @@
             time =  AD_START_POS;
         }
         else {
-            time = vTime - AD_LENGTH;
+            time = vTime - AD_LENGTH; 
         }
 
         return time;
@@ -300,7 +300,7 @@
 
     VideoPlayer.prototype._startVideo = function() {
 
-        var media = this._castplayer.mediaManager_.getMediaInformation();
+        var media = this._castplayer.mediaManager_.getMediaInformation();        
 
         // Prepare the main video info.
         this._videoInfo = new ADBMobile.media.MediaInfo();
@@ -314,13 +314,13 @@
 
     VideoPlayer.prototype._startChapter1 = function() {
         // Prepare the chapter info.
-        this._chapterInfo = ADBMobile.media.createChapterObject("First Chapter", 1, CHAPTER1_LENGTH, CHAPTER1_START_POS);
+        this._chapterInfo = ADBMobile.media.createChapterObject("First Chapter", 1, CHAPTER1_LENGTH, CHAPTER1_START_POS);        
         NotificationCenter().dispatchEvent(PlayerEvent.CHAPTER_START);
     };
 
     VideoPlayer.prototype._startChapter2 = function() {
         // Prepare the chapter info.
-        this._chapterInfo = ADBMobile.media.createChapterObject("Second Chapter", 2, CHAPTER2_LENGTH, CHAPTER2_START_POS);
+        this._chapterInfo = ADBMobile.media.createChapterObject("Second Chapter", 2, CHAPTER2_LENGTH, CHAPTER2_START_POS);        
         NotificationCenter().dispatchEvent(PlayerEvent.CHAPTER_START);
     };
 
@@ -334,9 +334,9 @@
     VideoPlayer.prototype._startAd = function() {
          // Prepare the ad break info.
         this._adBreakInfo = ADBMobile.media.createAdBreakObject("First Ad-Break", 1, AD_START_POS, this._playerName);
-        // Prepare the ad info.
+        // Prepare the ad info.        
         this._adInfo = ADBMobile.media.createAdObject("Sample ad", "001", 1, AD_LENGTH);
-
+       
 
         // Start the ad break.
         NotificationCenter().dispatchEvent(PlayerEvent.AD_BREAK_START);
@@ -405,6 +405,11 @@
         }
 
         var vTime = this.getPlayhead();
+
+        //Chromecast player uses playhead 0 before and after the video plays. Ignoring playhead 0.
+        if(vTime == 0){
+            return
+        }
 
         if(Math.abs(this.getDuration() - vTime) <= 1.0){
             this._reachedEnd = true;

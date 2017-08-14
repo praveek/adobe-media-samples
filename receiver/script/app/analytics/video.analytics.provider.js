@@ -26,8 +26,8 @@
         //Enable logging
         ADBMobile.config.setDebugLogging(true);
 
-        //Set User Id
-        ADBMobile.config.setUserIdentifier("test-UserId");
+        //If needed, set Custom User unique identifier
+        //ADBMobile.config.setUserIdentifier("test-UserId");
 
         //Set media delegate
         ADBMobile.media.setDelegate(this);
@@ -40,7 +40,7 @@
            // Remove delegate reference
             ADBMobile.media.setDelegate(null);
 
-            this._uninstallEventListeners();
+            this._uninstallEventListeners();            
         }
     };
 
@@ -64,13 +64,26 @@
 
         console.log('Player event: VIDEO_LOAD');
 
+        var VideoMetadataKeys = ADBMobile.media.VideoMetadataKeys;
+
         var mediaMetadata = {
             isUserLoggedIn: "false",
             tvStation: "Sample TV station",
             programmer: "Sample programmer"
         };
 
-        ADBMobile.media.trackSessionStart(this._player.getVideoInfo(), mediaMetadata);
+        var mediaObject = this._player.getVideoInfo();
+
+        var standardVideoMetadata = {};
+        standardVideoMetadata[VideoMetadataKeys.SHOW] = "Sample show";
+        standardVideoMetadata[VideoMetadataKeys.SEASON] = "Sample season";
+
+        mediaObject[ADBMobile.media.MediaObjectKey.StandardVideoMetadata] = standardVideoMetadata;
+
+        //Set to true if this video session is a resumed session
+        //mediaObject[ADBMobile.media.MediaObjectKey.VideoResumed] = true;
+
+        ADBMobile.media.trackSessionStart(mediaObject, mediaMetadata);
     };
 
     VideoAnalyticsProvider.prototype._onUnload = function() {
