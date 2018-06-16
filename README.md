@@ -8,6 +8,12 @@
 ### **SDK Version - 2.0.2**
 [Basic Sample Player](browser/2.0.2/BasicPlayerSample/index.html)
 
+### **SDK Version - 2.0.1**
+[Basic Sample Player](browser/2.0.1/BasicPlayerSample/index.html)
+
+### **SDK Version - 2.0.0**
+[Basic Sample Player](browser/2.0.0/BasicPlayerSample/index.html)
+
 ---
 ## **Adobe Launch Samples**
 ### **Version - 1.1.0**
