@@ -18,6 +18,30 @@
 
 [Basic Sample Player](browser/2.0.0/BasicPlayerSample/index.html)
 
+### **SDK Version - 1.5.7**
+
+[Basic Sample Player](browser/1.5.7/BasicPlayerSample/index.html)
+
+### **SDK Version - 1.5.6**
+
+[Basic Sample Player](browser/1.5.6/BasicPlayerSample/index.html)
+
+### **SDK Version - 1.5.4**
+
+[Basic Sample Player](browser/1.5.4/BasicPlayerSample/index.html)
+
+### **SDK Version - 1.5.3**
+
+[Basic Sample Player](browser/1.5.3/BasicPlayerSample/index.html)
+
+### **SDK Version - 1.5.2**
+
+[Basic Sample Player](browser/1.5.2/BasicPlayerSample/index.html)
+
+### **SDK Version - 1.5.1**
+
+[Basic Sample Player](browser/1.5.1/BasicPlayerSample/index.html)
+
 ---
 
 ## **Adobe Launch Samples**
