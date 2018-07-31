@@ -24,7 +24,7 @@
         //ADBMobile.config.setPrivacyStatus(ADBMobile.config.PRIVACY_STATUS_OPT_IN);
 
         //Enable logging
-        ADBMobile.config.setDebugLogging(true);
+        ADBMobile.config.setDebugLogging(false);
 
         //If needed, set Custom User unique identifier
         //ADBMobile.config.setUserIdentifier("test-UserId");
@@ -83,6 +83,8 @@
         //Set to true if this video session is a resumed session
         //mediaObject[ADBMobile.media.MediaObjectKey.VideoResumed] = true;
 
+        ADBMobile.media.trackSessionStart(mediaObject, mediaMetadata);
+        ADBMobile.media.trackSessionEnd();
         ADBMobile.media.trackSessionStart(mediaObject, mediaMetadata);
     };
 
