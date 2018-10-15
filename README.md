@@ -1,4 +1,4 @@
-# [vhl-samples](https://praveek.github.io/vhl-samples/)
+# [adobe-media-samples](https://praveek.github.io/adobe-media-samples/)
 
 ## **Browser Samples**
 
