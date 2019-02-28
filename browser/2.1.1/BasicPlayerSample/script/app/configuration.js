@@ -22,14 +22,14 @@
 
         VISITOR: {
             MARKETING_CLOUD_ORG_ID: '3CE342C75100435B0A490D4C@AdobeOrg',
-            TRACKING_SERVER: 'obumobile1.sc.omtrdc.net',
+            TRACKING_SERVER: 'obumobile5.sc.omtrdc.net',
             DPID: 'sample-dpid',
             DPUUID: 'sample-dpuuid'
         },
 
         APP_MEASUREMENT: {
             RSID: 'mobile1vhl.sample.player',
-            TRACKING_SERVER: 'obumobile1.sc.omtrdc.net',
+            TRACKING_SERVER: 'obumobile5.sc.omtrdc.net',
             PAGE_NAME: 'Sample Page Name'
         },
 
