@@ -2,6 +2,14 @@
 
 ## **Browser Samples**
 
+### **SDK Version - 2.2.0**
+
+[Basic Sample Player](browser/2.2.0/BasicPlayerSample/index.html)
+
+### **SDK Version - 2.1.1**
+
+[Basic Sample Player](browser/2.1.1/BasicPlayerSample/index.html)
+
 ### **SDK Version - 2.1.0**
 
 [Basic Sample Player](browser/2.1.0/BasicPlayerSample/index.html)
@@ -46,9 +54,9 @@
 
 ## **Adobe Launch Samples**
 
-### **Version - 1.1.0 (Production Environment)**
+### **Version - 1.2.0 (Production Environment)**
 
-[Basic Sample Player](adobe-launch/prod/1.1.0/VideoHeartbeatSample/index.html)
+[Basic Sample Player](adobe-launch/prod/1.2.0/MediaExtensionSample/index.html)
 
 ### **Version - 1.1.0 (Integration Environment)**
 
