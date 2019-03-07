@@ -74,6 +74,12 @@
 
 [Receiver Application](chromecast/dev/receiver/index.html)
 
+### **SDK Version 2.2.0**
+
+[Sender Application](chromecast/2.2.0/sender/chrome/index.html)
+
+[Receiver Application](chromecast/2.2.0/receiver/index.html)
+
 ### **SDK Version 2.0.2**
 
 [Sender Application](chromecast/2.0.2/sender/chrome/index.html)
