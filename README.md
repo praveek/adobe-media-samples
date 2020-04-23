@@ -62,17 +62,9 @@
 
 ## **Adobe Launch Samples**
 
-### **Version - 1.2.0 (Production Environment)**
+### **Version - 1.2.0 (Production Environment) (2.x)**
 
 [Basic Sample Player](adobe-launch/prod/2.x/1.2.0/MediaExtensionSample/index.html)
-
-[Basic Sample Player](adobe-launch/prod/2.x/1.1.0/VideoHeartbeatSample/index.html)
-
-### **Version - 1.1.0 (Integration Environment)**
-
-[Basic Sample Player](adobe-launch/integration/1.1.0/VideoHeartbeatSample/index.html)
-
-[Player Extension Sample](adobe-launch/integration/1.1.0/PlayerExtensionSample/index.html)
 
 ---
 
