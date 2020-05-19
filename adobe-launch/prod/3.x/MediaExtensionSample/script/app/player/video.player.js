@@ -1,6 +1,6 @@
 /*
  * ADOBE SYSTEMS INCORPORATED
- * Copyright 2018 Adobe Systems Incorporated
+ * Copyright 2014 Adobe Systems Incorporated
  * All Rights Reserved.
 
  * NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the
@@ -8,9 +8,12 @@
  * source other than Adobe, then your use, modification, or distribution of it requires the prior
  * written permission of Adobe.
  */
+
 'use strict';
 
 (function() {
+
+
   var PlayerEvent = {
     VIDEO_LOAD: 'video_load',
     VIDEO_UNLOAD: 'video_unload',
@@ -24,7 +27,11 @@
     AD_START: 'ad_start',
     AD_COMPLETE: 'ad_complete',
     CHAPTER_START: 'chapter_start',
-    CHAPTER_COMPLETE: 'chapter_complete'
+    CHAPTER_COMPLETE: 'chapter_complete',
+    PLAYHEAD_UPDATE: 'playhead_update',
+    QOE_UPDATE: 'qoe_update',
+    MUTE_CHANGE : 'mute_change',
+    FULLSCREEN_CHANGE : 'fullscreen_change'
   };
 
 
@@ -57,17 +64,21 @@
     this._adInfo = null;
     this._chapterInfo = null;
 
-    // Build a static/hard-coded QoS info here.
-    this._qosInfo = {
-      bitrate : 50000,
-      startupTime : 0,
-      fps : 24,
-      droppedFrames : 10
-    };
-
     this._clock = null;
 
+    this._lastReportedTime = -1;
+    // Build a static/hard-coded QoS info here.
+    this._qoeInfo = {
+      bitrate: 50000,
+      startupTime : 1.0,
+      fps: 23,
+      droppedFrames: 0,
+    };
+
     this.el = document.getElementById(id);
+
+    this._muted = !!this.el.muted;
+    this._fullScreen = false;
 
     var self = this;
     if (this.el) {
@@ -86,11 +97,32 @@
       this.el.addEventListener('ended', function() {
         self._onComplete();
       });
+
+      this.el.addEventListener('volumechange', function() {
+        var mute = self.el.volume === 0 || self.el.muted;
+        if (self._muted !== mute) {
+          self._muted = mute;
+          self._onMuteChange();
+        }
+      });
+
+      function detectFullScreen() {
+        var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+        var fullscreen = !!state;
+        if (self._fullScreen !== fullscreen) {
+          self._fullScreen = fullscreen;
+          self._onFullScreenChange();
+        }
+      }
+
+      this.el.addEventListener('mozfullscreenchange', detectFullScreen);
+      this.el.addEventListener('webkitfullscreenchange', detectFullScreen);
+      this.el.addEventListener('fullscreenchange', detectFullScreen);
     }
   }
 
   VideoPlayer.prototype.getCurrentPlaybackTime = function() {
-    var playhead;        
+    var playhead;
     var vTime = this.getPlayhead();
     if (vTime > AD_START_POS + AD_LENGTH) {
       playhead = vTime - AD_LENGTH;
@@ -98,7 +130,7 @@
       playhead = AD_START_POS;
     } else {
       playhead = vTime;
-    }            
+    }
     return playhead;
   };
 
@@ -118,8 +150,8 @@
     return this._chapterInfo;
   };
 
-  VideoPlayer.prototype.getQoSInfo = function() {
-    return this._qosInfo;
+  VideoPlayer.prototype.getQoEInfo = function() {
+    return this._qoeInfo;
   };
 
   VideoPlayer.prototype.getDuration = function() {
@@ -129,6 +161,26 @@
   VideoPlayer.prototype.getPlayhead = function() {
     var playhead = this.el.currentTime;
     return playhead ? playhead : 0;
+  };
+
+  VideoPlayer.prototype.isMuted = function() {
+    return this._muted;
+  };
+
+  VideoPlayer.prototype.isFullscreen = function() {
+    return this._fullScreen;
+  };
+
+  VideoPlayer.prototype._onMuteChange = function(e) {
+    if (this._videoLoaded) {
+      NotificationCenter().dispatchEvent(PlayerEvent.MUTE_CHANGE);
+    }
+  };
+
+  VideoPlayer.prototype._onFullScreenChange = function(e) {
+    if (this._videoLoaded) {
+      NotificationCenter().dispatchEvent(PlayerEvent.FULLSCREEN_CHANGE);
+    }
   };
 
   VideoPlayer.prototype._onPlay = function(e) {
@@ -203,6 +255,17 @@
     this._videoLoaded = true;
 
     NotificationCenter().dispatchEvent(PlayerEvent.VIDEO_LOAD);
+
+    NotificationCenter().dispatchEvent(PlayerEvent.QOE_UPDATE);
+
+    if (this._muted) {
+      this._onMuteChange();
+    }
+
+    if (this._fullScreen) {
+      this._onFullScreenChange();
+    }
+
   };
 
   VideoPlayer.prototype._startChapter1 = function() {
@@ -285,7 +348,7 @@
         // Also, clear the chapter info, without sending the CHAPTER_COMPLETE event.
         this._chapterInfo = null;
       }
-    } else {  // Seek inside the second chapter.
+    } else { // Seek inside the second chapter.
       // If we were not inside the 2nd chapter before, trigger a chapter start
       if (!this._chapterInfo || this._chapterInfo.position !== 2) {
         this._startChapter2();
@@ -345,6 +408,12 @@
         }
       }
     }
+
+    var currentTime = this.getCurrentPlaybackTime();
+    if (currentTime !== this._lastReportedTime) {
+      NotificationCenter().dispatchEvent(PlayerEvent.PLAYHEAD_UPDATE);
+    }
+    this._lastReportedTime = currentTime;
   };
 
   // Export symbols.

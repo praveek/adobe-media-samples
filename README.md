@@ -62,9 +62,13 @@
 
 ## **Adobe Launch Samples**
 
-### **Version - 1.2.0 (Production Environment) (2.x)**
+### **3.x SDK**
 
-[Basic Sample Player](adobe-launch/prod/2.x/1.2.0/MediaExtensionSample/index.html)
+[Media Extension Sample](adobe-launch/prod/3.x/MediaExtensionSample/index.html)
+
+### **2.x SDK**
+
+[Media Extension Sample](adobe-launch/prod/2.x/MediaExtensionSample/index.html)
 
 ---
 
