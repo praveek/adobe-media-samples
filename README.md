@@ -6,6 +6,10 @@
 
 [Media Analytics Sample](browser/3.0.0/MediaAnalyticsSample/index.html)
 
+### **SDK Version - 2.2.2**
+
+[Basic Sample Player](browser/2.2.2/BasicPlayerSample/index.html)
+
 ### **SDK Version - 2.2.1**
 
 [Basic Sample Player](browser/2.2.1/BasicPlayerSample/index.html)
