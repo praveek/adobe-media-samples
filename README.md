@@ -64,15 +64,15 @@
 
 ---
 
-## **Adobe Launch Samples**
+## **Launch Samples**
 
 ### **3.x SDK**
 
-[Media Extension Sample](adobe-launch/prod/3.x/MediaExtensionSample/index.html)
+[Media Extension Sample](launch/prod/3.x/MediaExtensionSample/index.html)
 
 ### **2.x SDK**
 
-[Media Extension Sample](adobe-launch/prod/2.x/MediaExtensionSample/index.html)
+[Media Extension Sample](launch/prod/2.x/MediaExtensionSample/index.html)
 
 ---
 
