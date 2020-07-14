@@ -68,11 +68,11 @@
 
 ### **3.x SDK**
 
-[Media Extension Sample](launch/prod/3.x/MediaExtensionSample/index.html)
+[Media Extension Sample](launch/3.x/MediaExtensionSample/index.html)
 
 ### **2.x SDK**
 
-[Media Extension Sample](launch/prod/2.x/MediaExtensionSample/index.html)
+[Media Extension Sample](launch/2.x/MediaExtensionSample/index.html)
 
 ---
 
