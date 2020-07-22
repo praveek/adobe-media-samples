@@ -1,5 +1,19 @@
 # [adobe-media-samples](https://praveek.github.io/adobe-media-samples/)
 
+## **Integrations**
+
+### **Youtube**
+
+[3.x Standalone](integrations/youtube/standalone/3.x/index.html)
+
+[3.x Launch](integrations/youtube/launch/3.x/index.html)
+
+[2.x Standalone](integrations/youtube/standalone/2.x/index.html)
+
+[2.x Launch](integrations/youtube/launch/2.x/index.html)
+
+--- 
+
 ## **Browser standalone samples**
 
 ### **SDK Version - 3.0.0**
@@ -75,20 +89,6 @@
 [Media Extension Sample](launch/2.x/MediaExtensionSample/index.html)
 
 ---
-
-## **Integerations**
-
-### **Youtube**
-
-[3.x Standalone](integrations/youtube/standalone/3.x/index.html)
-
-[3.x Launch](integrations/youtube/launch/3.x/index.html)
-
-[2.x Standalone](integrations/youtube/standalone/2.x/index.html)
-
-[2.x Launch](integrations/youtube/launch/2.x/index.html)
-
---- 
 
 ## **Chromecast Samples**
 
