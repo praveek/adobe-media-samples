@@ -88,12 +88,6 @@
 
 [2.x Launch](integrations/youtube/launch/2.x/index.html)
 
-### **SDK Version 2.0.2**
-
-[Sender Application](chromecast/2.0.2/sender/chrome/index.html)
-
-[Receiver Application](chromecast/2.0.2/receiver/index.html)
-
 --- 
 
 ## **Chromecast Samples**
