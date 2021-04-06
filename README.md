@@ -16,6 +16,10 @@
 
 ## **Browser standalone samples**
 
+### **SDK Version - 3.0.2**
+
+[Media Analytics Sample](standalone/3.0.2/MediaAnalyticsSample/index.html)
+
 ### **SDK Version - 3.0.1**
 
 [Media Analytics Sample](standalone/3.0.1/MediaAnalyticsSample/index.html)
